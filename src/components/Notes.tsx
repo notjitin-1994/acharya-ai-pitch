@@ -16,19 +16,24 @@ export const Notes: React.FC<NotesProps> = ({ notes, onClose, isVisible }) => {
           initial={{ opacity: 0, y: 50, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 50, scale: 0.95 }}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="notes-title"
           className="absolute bottom-24 left-1/2 -translate-x-1/2 w-[90%] max-w-3xl bg-[#020C1B]/95 backdrop-blur-md border border-[#A7DADB]/30 p-6 rounded-2xl shadow-2xl z-50"
         >
+          <h2 id="notes-title" className="sr-only">Speaker Notes</h2>
           <div className="flex justify-between items-center mb-4 border-b border-[#142433] pb-2">
             <h4 className="font-display font-bold text-[#A7DADB] flex items-center gap-2">
               <Mic size={16}/> Teleprompter
             </h4>
-            <button onClick={onClose} className="text-[#b0c5c6] hover:text-white">
+            <button onClick={onClose} aria-label="Close speaker notes" className="text-[#b0c5c6] hover:text-white">
               <X size={20} />
             </button>
           </div>
-          <p className="text-xl leading-relaxed text-white font-body italic">
+          <p className="text-xl leading-relaxed text-white font-body">
             {notes}
           </p>
+          <span className="block text-xs text-[#A7DADB]/50 mt-4">Press <kbd>N</kbd> or <kbd>Esc</kbd> to close</span>
         </motion.div>
       )}
     </AnimatePresence>

@@ -36,17 +36,19 @@ export const Navigation: React.FC<NavigationProps> = ({
       </div>
 
       <div className="flex gap-4">
-        <button 
+        <button
           onClick={onPrev}
           disabled={currentSlide === 0}
-          className="p-3 rounded-full bg-[#142433] text-white hover:bg-[#A7DADB] hover:text-[#020C1B] disabled:opacity-30 disabled:hover:bg-[#142433] disabled:hover:text-white transition-colors"
+          aria-label="Previous slide"
+          className="p-3 min-h-11 min-w-11 flex items-center justify-center press-scale rounded-full bg-[#142433] text-white hover:bg-[#A7DADB] hover:text-[#020C1B] disabled:opacity-30 disabled:hover:bg-[#142433] disabled:hover:text-white transition-colors"
         >
           <ChevronLeft size={24} />
         </button>
-        <button 
+        <button
           onClick={onNext}
           disabled={currentSlide === totalSlides - 1}
-          className="p-3 rounded-full bg-[#6366f1] text-white hover:bg-[#6366f1]/80 disabled:opacity-30 transition-colors shadow-[0_0_20px_rgba(99,102,241,0.4)] border border-[#6366f1]/20"
+          aria-label="Next slide"
+          className="p-3 min-h-11 min-w-11 flex items-center justify-center press-scale rounded-full bg-[#6366f1] text-white hover:bg-[#6366f1]/80 disabled:opacity-30 transition-colors shadow-[0_0_20px_rgba(99,102,241,0.4)] border border-[#6366f1]/20"
         >
           <ChevronRight size={24} />
         </button>
@@ -66,6 +68,7 @@ export const Navigation: React.FC<NavigationProps> = ({
         </a>
         <button 
           onClick={handlePresent}
+          aria-label="Open presenter view"
           className="flex items-center gap-2 px-4 py-2 rounded-lg font-bold bg-[#142433] text-[#b0c5c6] hover:text-white transition-colors"
           title="Launch Presenter View & Full Screen"
         >
@@ -73,6 +76,7 @@ export const Navigation: React.FC<NavigationProps> = ({
         </button>
         <button 
           onClick={onToggleNotes}
+          aria-label="Toggle speaker notes"
           className={`flex items-center gap-2 px-4 py-2 rounded-lg font-bold transition-colors ${
             showNotes ? 'bg-[#A7DADB] text-[#020C1B]' : 'bg-[#142433] text-[#b0c5c6] hover:text-white'
           }`}

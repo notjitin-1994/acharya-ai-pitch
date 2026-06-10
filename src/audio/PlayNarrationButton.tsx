@@ -95,6 +95,7 @@ export const PlayNarrationButton: React.FC = () => {
           aria-valuemin={0}
           aria-valuemax={Math.round(duration)}
           aria-valuenow={Math.round(currentTime)}
+          aria-valuetext={`${formatTime(scrubPct !== null ? (scrubPct / 100) * duration : currentTime)} of ${formatTime(duration)}`}
           tabIndex={0}
           className="relative flex items-center w-full cursor-pointer select-none"
           style={{ height: 20 }}
