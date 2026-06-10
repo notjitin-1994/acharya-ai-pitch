@@ -6,6 +6,8 @@ import { FlickeringGrid } from '../ui/flickering-grid';
 import { MeshGradient } from '../ui/atmosphere';
 import { PlayNarrationButton } from '../../audio/PlayNarrationButton';
 import { useNarration } from '../../audio/NarrationContext';
+import { MagneticButton } from '../ui/MagneticButton';
+import { SpringCounter } from '../ui/SpringCounter';
 
 const easeOut = [0.16, 1, 0.3, 1] as const;
 
@@ -13,8 +15,6 @@ export const Hero = () => {
   const [videoOpen, setVideoOpen] = useState(false);
   const { pauseForVideo, resumeFromVideo } = useNarration();
 
-  // Coordinate narration with the video dialog — pause when video opens,
-  // restore to pre-video state when it closes.
   useEffect(() => {
     if (videoOpen) {
       pauseForVideo();
@@ -89,7 +89,7 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 22 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.08, ease: easeOut }}
-            className="font-display font-bold text-white leading-[0.94] tracking-[-0.025em] text-[clamp(2.6rem,7vw,7.25rem)]"
+            className="font-display font-bold text-white leading-[0.94] tracking-[-0.025em] text-[clamp(2.6rem,7vw,7.25rem)] text-balance"
           >
             An era is
             <br />
@@ -103,25 +103,25 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.18, ease: easeOut }}
-            className="font-body font-light text-[#b0c5c6] text-lg md:text-xl leading-[1.55] max-w-[58ch]"
+            className="font-body font-light text-[#b0c5c6] text-lg md:text-xl leading-[1.55] max-w-[58ch] text-pretty"
           >
             Smartslate, in partnership with{" "}
             <span className="text-white font-normal">Acharya Institute of Technology</span>, presents a three-pillar architecture for the AI-native campus.
           </motion.p>
 
-          {/* CTA cluster */}
+          {/* CTA cluster — magnetic buttons */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.28, ease: easeOut }}
             className="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-2"
           >
-            <a
+            <MagneticButton
               href="mailto:hello@smartslate.io?subject=AIT%20AI%20Transformation%20Programme%20Enquiry"
+              strength={0.28}
               className="group inline-flex items-center gap-3 rounded-full px-5 md:px-6 py-3 md:py-3.5 bg-[#A7DADB] text-[#020C1B] press-scale font-display font-bold text-[13px] md:text-sm tracking-[0.16em] md:tracking-[0.18em] uppercase"
               style={{
                 boxShadow: "0 12px 30px -10px rgba(167,218,219,0.55), inset 0 1px 0 rgba(255,255,255,0.4)",
-                transition: "transform 160ms var(--ease-out-expo), box-shadow 200ms var(--ease-out-expo)",
               }}
             >
               <span className="relative flex h-1.5 w-1.5 shrink-0">
@@ -130,12 +130,13 @@ export const Hero = () => {
               </span>
               <span>Reach Out</span>
               <Mail className="h-3.5 w-3.5 opacity-65 group-hover:opacity-100" strokeWidth={2} style={{ transition: "opacity 200ms" }} />
-            </a>
+            </MagneticButton>
 
             <span aria-hidden className="hidden sm:block h-5 w-px bg-white/[0.12] shrink-0" />
 
-            <a
+            <MagneticButton
               href="#problem"
+              strength={0.22}
               className="group inline-flex items-center gap-2.5 rounded-full border border-white/[0.12] bg-white/[0.03] hover:bg-white/[0.06] hover:border-white/[0.22] px-4 md:px-5 py-2.5 md:py-3 font-display font-bold text-[12px] md:text-[13px] tracking-[0.18em] uppercase text-[#b0c5c6] hover:text-white backdrop-blur-sm"
               style={{ transition: "background-color 200ms var(--ease-out-expo), border-color 200ms var(--ease-out-expo), color 200ms var(--ease-out-expo)" }}
             >
@@ -145,37 +146,35 @@ export const Hero = () => {
                 strokeWidth={2}
                 style={{ transition: "opacity 200ms, transform 220ms var(--ease-out-expo)" }}
               />
-            </a>
+            </MagneticButton>
           </motion.div>
 
           {/* Audio narration */}
           <PlayNarrationButton />
 
-          {/* Trust strip */}
+          {/* Trust strip — spring counters */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.6, ease: easeOut }}
             className="pt-10 md:pt-12 mt-2 border-t border-white/[0.06] grid grid-cols-3 gap-x-3 sm:gap-x-6 max-w-xl"
           >
-            {[
-              { k: "Pillars", v: "03" },
-              { k: "Efficiency", v: "70%" },
-              { k: "Era", v: "2026" },
-            ].map((m) => (
-              <div key={m.k} className="flex flex-col gap-1.5 pt-5">
-                <span className="font-display text-[9px] sm:text-[10px] tracking-[0.28em] sm:tracking-[0.35em] uppercase text-[#b0c5c6]/60 font-bold">
-                  {m.k}
-                </span>
-                <span className="font-display text-xl sm:text-2xl md:text-3xl text-white tabular-nums tracking-tight">
-                  {m.v}
-                </span>
-              </div>
-            ))}
+            <div className="flex flex-col gap-1.5 pt-5">
+              <span className="font-display text-[9px] sm:text-[10px] tracking-[0.28em] sm:tracking-[0.35em] uppercase text-[#b0c5c6]/60 font-bold">Pillars</span>
+              <SpringCounter value={3} prefix="0" className="font-display text-xl sm:text-2xl md:text-3xl text-white tabular-nums tracking-tight" />
+            </div>
+            <div className="flex flex-col gap-1.5 pt-5">
+              <span className="font-display text-[9px] sm:text-[10px] tracking-[0.28em] sm:tracking-[0.35em] uppercase text-[#b0c5c6]/60 font-bold">Efficiency</span>
+              <SpringCounter value={70} suffix="%" className="font-display text-xl sm:text-2xl md:text-3xl text-white tabular-nums tracking-tight" />
+            </div>
+            <div className="flex flex-col gap-1.5 pt-5">
+              <span className="font-display text-[9px] sm:text-[10px] tracking-[0.28em] sm:tracking-[0.35em] uppercase text-[#b0c5c6]/60 font-bold">Era</span>
+              <SpringCounter value={2026} className="font-display text-xl sm:text-2xl md:text-3xl text-white tabular-nums tracking-tight" />
+            </div>
           </motion.div>
         </div>
 
-        {/* Right: video as cinematic still. */}
+        {/* Right: video as cinematic still */}
         <motion.div
           initial={{ opacity: 0, scale: 0.97, y: 24 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -186,7 +185,6 @@ export const Hero = () => {
             style={{ transform: parallax, willChange: "transform", backfaceVisibility: "hidden" }}
             className="relative"
           >
-            {/* Soft halo */}
             <div
               aria-hidden
               className="absolute -inset-12 -z-10 blur-3xl opacity-60"
@@ -204,7 +202,6 @@ export const Hero = () => {
               onOpenChange={setVideoOpen}
             />
 
-            {/* Caption */}
             <div className="mt-6 flex items-center justify-between text-[10px] md:text-[11px] tracking-[0.32em] uppercase text-[#b0c5c6]/70 font-display font-bold">
               <span>Smartslate × AIT</span>
               <span className="tabular-nums">AIT_COGNITIVE_V1.0</span>
